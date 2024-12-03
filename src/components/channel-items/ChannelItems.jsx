@@ -1,5 +1,5 @@
 import { CheckCircle } from "@mui/icons-material";
-import { Stack, Box, CardMedia, Typography, CardContent } from "@mui/material";
+import { CardMedia, Typography, CardContent } from "@mui/material";
 import { Link } from "react-router-dom";
 
 function ChannelItems({ item }) {
