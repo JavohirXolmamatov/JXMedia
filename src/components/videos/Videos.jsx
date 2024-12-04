@@ -8,7 +8,7 @@ import { colors } from "../../constant/colors";
 import Loader from "../loader/Loader";
 
 function Videos({ item }) {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("New");
   const [videos, setVideos] = useState([]);
   const [isPending, setIsPending] = useState(true);
 
