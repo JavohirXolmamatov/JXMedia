@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Apiservice } from "../service/api.service";
-import { Box, Container } from "@mui/material";
 import ChannelItems from "../channel-items/ChannelItems";
 import Videos from "../videos/Videos";
+import Loader from "../loader/Loader";
 function Channel() {
   const { id } = useParams();
   const [channelDetail, setChannelDetail] = useState();
@@ -19,19 +19,23 @@ function Channel() {
         `search?channelId=${id}&part=snippet`
       );
 
-      setVideos((await dataVideo).data.items);
+      setVideos((await dataVideo).data?.items);
     };
     getData();
   }, [id]);
+
+  if (!channelDetail) {
+    return <Loader />;
+  }
   return (
-    <Box minHeight={"95vh"} mt={"10vh"}>
-      <Box>
+    <section className="w-full">
+      <section>
         <ChannelItems item={channelDetail} />
-      </Box>
-      <Container maxWidth={"90%"}>
+      </section>
+      <section>
         <Videos item={videos} />
-      </Container>
-    </Box>
+      </section>
+    </section>
   );
 }
 

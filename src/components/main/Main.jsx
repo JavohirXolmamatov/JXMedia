@@ -1,26 +1,22 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
-import { Box, Container, Typography } from "@mui/material";
+import { colors } from "../../constant/colors";
 function Main() {
   return (
-    <div>
+    <div className="w-full mx-auto">
       <header
         style={{
-          position: "fixed",
-          top: 0,
-          width: "100%",
-          zIndex: "99",
           boxShadow: "0px 2px 30px 0px rgba(34, 60, 80, 0.43)",
+          background: colors.primary,
         }}
+        className="w-full mx-auto fixed top-0 left-0 z-99"
       >
         <Navbar />
       </header>
-      <Box p={2} sx={{}}>
-        <Container maxWidth={"90% "}>
-          <Outlet />
-        </Container>
-      </Box>
+      <main className="w-[100%] mx-auto mt-[80px] ">
+        <Outlet />
+      </main>
       <footer>
         <Footer />
       </footer>

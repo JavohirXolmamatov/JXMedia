@@ -1,8 +1,8 @@
-import { Link, NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Apiservice } from "../service/api.service";
 import ReactPlayer from "react-player";
-import { Avatar, Box, Chip, Stack, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 import {
   CheckCircle,
   FavoriteOutlined,
@@ -11,6 +11,7 @@ import {
   Visibility,
 } from "@mui/icons-material";
 import Videos from "../videos/Videos";
+import Loader from "../loader/Loader";
 
 function VideoDetail() {
   const { id } = useParams();
@@ -36,35 +37,42 @@ function VideoDetail() {
     getData();
   }, [id]);
 
-  if (!videoDetail) return <div>Loading...</div>;
+  if (!videoDetail)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   console.log(videoDetail.snippet.channelId);
 
   return (
-    <Box minHeight={"90vh"} mb={10} mt={10}>
+    <section className="md:w-[90%] w-full p-2 mx-auto pt-10">
       <Box display={"flex"} sx={{ flexDirection: { xs: "column", md: "row" } }}>
         <Box width={{ xs: "100%", md: "75%" }}>
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${id}type=video`}
-            className="react-player"
+            className="react-player "
             controls
           />
           {videoDetail.snippet.tags.map((item, index) => (
             <Chip
               label={item}
               key={index}
-              sx={{ marginTop: "10px", cursor: "pointer", ml: "10px" }}
+              sx={{
+                marginTop: "10px",
+                cursor: "pointer",
+                ml: "10px",
+              }}
               deleteIcon={<Tag />}
               onDelete={() => {}}
               variant="outlined"
             />
           ))}
-          <Typography variant="h5" p={2}>
-            {videoDetail.snippet.title}
-          </Typography>
-          <Typography variant="subtitle2" p={2} sx={{ opacity: "0.7" }}>
+          <p className="p-2">{videoDetail.snippet.title}</p>
+          <h2 className="p-2 opacity-70 overflow-hidden max-h-[300px]">
             {videoDetail.snippet.description}
-          </Typography>
+          </h2>
           <Stack
             direction={"row"}
             gap={"20px"}
@@ -112,7 +120,8 @@ function VideoDetail() {
               gap={"5px"}
               marginTop={"5px"}
             >
-              <Avatar
+              <img
+                className="rounded-full size-12 mx-2"
                 alt={videoDetail.snippet.channelTitle}
                 src={videoDetail.snippet.thumbnails.default.url}
               />
@@ -125,19 +134,11 @@ function VideoDetail() {
             </Stack>
           </NavLink>
         </Box>
-        <Box
-          width={{ xs: "100%", md: "25%" }}
-          px={2}
-          py={{ md: 1, xs: 5 }}
-          justifyContent={"center"}
-          alignItems={"center"}
-          overflow={"scroll"}
-          maxHeight={"120vh"}
-        >
+        <section className="w-full mx-auto my-4 md:my-0">
           <Videos item={relatedVideo} />
-        </Box>
+        </section>
       </Box>
-    </Box>
+    </section>
   );
 }
 

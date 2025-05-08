@@ -17,7 +17,6 @@ function Videos({ item }) {
   };
 
   useEffect(() => {
-    // Agar `item` mavjud bo'lsa, loaderni o'chirish
     if (item) {
       setIsPending(false);
     } else {
@@ -27,7 +26,8 @@ function Videos({ item }) {
           const data = await Apiservice.fetching(
             `search?part=snippet&q=${selectedCategory}`
           );
-          setVideos(data.data.items || []);
+          setVideos(data?.data?.items || []);
+          setIsPending(false);
         } catch (err) {
           console.error(err);
         } finally {
@@ -40,10 +40,10 @@ function Videos({ item }) {
   }, [selectedCategory, item]); // `item`ga ham bog'langan
 
   return (
-    <Stack pt={"80px"} minHeight={"100vh"}>
+    <section className="md:w-[90%] w-full p-3 mx-auto">
       {/* Faqat item yo'q bo'lsa, kategoriya komponentini ko'rsatish */}
       {!item && (
-        <>
+        <div className="w-full">
           <Category
             selectedCategoryHandle={selectedCategoryHandle}
             selectedCategory={selectedCategory}
@@ -52,35 +52,29 @@ function Videos({ item }) {
             {selectedCategory || "No category selected"}{" "}
             <span style={{ color: colors.secondary }}>videos</span>
           </Typography>
-        </>
+        </div>
       )}
 
       {/* Loader */}
       {isPending && <Loader />}
 
       {/* Ma'lumotlarni render qilish */}
-      <Stack
-        direction="row"
-        flexWrap={"wrap"}
-        justifyContent={"start"}
-        alignItems={"start"}
-        gap={3}
-      >
+      <div className="flex flex-wrap gap-8 w-full mx-auto ">
         {item
           ? item.map((video) => (
               <Box key={video.id.videoId || video.id.channelId}>
-                {video.id.videoId && <VideoItems item={video} />}
-                {video.id.channelId && <ChannelItems item={video} />}
+                {video?.id?.videoId && <VideoItems item={video} />}
+                {video?.id?.channelId && <ChannelItems item={video} />}
               </Box>
             ))
           : videos.map((video) => (
-              <Box key={video.id.videoId || video.id.channelId}>
-                {video.id.videoId && <VideoItems item={video} />}
-                {video.id.channelId && <ChannelItems item={video} />}
+              <Box key={video?.id?.videoId || video?.id?.channelId}>
+                {video?.id?.videoId && <VideoItems item={video} />}
+                {video?.id?.channelId && <ChannelItems item={video} />}
               </Box>
             ))}
-      </Stack>
-    </Stack>
+      </div>
+    </section>
   );
 }
 

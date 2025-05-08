@@ -1,9 +1,8 @@
-import { Stack } from "@mui/material";
 import { category } from "../../constant/index";
 import { colors } from "../../constant/colors";
 function Category({ selectedCategoryHandle, selectedCategory }) {
   return (
-    <Stack direction={"row"} sx={{ overflowX: "scroll" }}>
+    <section className="flex w-full mx-start gap-4 justify-start overflow-scroll md:overflow-auto">
       {category.map((item) => (
         <button
           key={item.name}
@@ -28,7 +27,7 @@ function Category({ selectedCategoryHandle, selectedCategory }) {
           <span style={{ opacity: "1" }}>{item.name}</span>
         </button>
       ))}
-    </Stack>
+    </section>
   );
 }
 
