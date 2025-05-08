@@ -14,7 +14,7 @@ function Main() {
       >
         <Navbar />
       </header>
-      <main className="w-[100%] mx-auto mt-[80px] ">
+      <main className="w-[100%] mx-auto mt-[80px] min-h-screen">
         <Outlet />
       </main>
       <footer>

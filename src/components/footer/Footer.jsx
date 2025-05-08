@@ -1,18 +1,16 @@
 import { Box, Typography } from "@mui/material";
+import { colors } from "../../constant/colors";
 function Footer() {
   return (
-    <Box
-      width={"100%"}
-      height={"100%"}
-      justifyContent={"center"}
-      alignItems={"center"}
-      textAlign={"center"}
-      sx={{ backgroundColor: "fcfaf5" }}
-    >
+    <footer className="h-[80px] w-full bg-[#ece9df]">
       <Typography width={"100%"} height={"100%"}>
-        JXmedia
+        <div className="w-full h-full flex justify-center items-center">
+          <p className="font-bold">
+            © 2024 Your Company, Inc. All rights reserved.
+          </p>
+        </div>
       </Typography>
-    </Box>
+    </footer>
   );
 }
 
